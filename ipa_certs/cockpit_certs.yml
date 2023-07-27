@@ -1,0 +1,55 @@
+---
+# Create replacement IPA certs for cockpits Self-Signed Certs
+# Configure certs
+# The cockpit webserver loads the set of certificates
+# from the last file (linux std sort-wise) in the
+# /etc/cockpit/wscert.d directory with a *.cert extension
+# If you want to guarantee your certs are used, be aware of this
+# and name your file in cockpit_cert_path accordingly
+# or rename any old cert files.
+
+- name: Generate the certificates
+  hosts: all
+  roles:
+  - http_cert
+
+  tasks:
+
+  - name: Ensure cockpit packages are installed
+    ansible.builtin.package:
+      name:
+        - cockpit
+        - cockpit-podman
+        - cockpit-session-recording
+        - cockpit-pcp
+      state: latest
+
+  - name: Ensure that cockpit is started
+    ansible.builtin.service:
+      name: cockpit.socket
+      enabled: true
+      state: started
+
+  - name: Ensure that the firewall is open
+    ansible.builtin.service:
+      name: firewalld
+      enabled: true
+      state: started
+
+  - name: Ensure that the firewall is open
+    ansible.posix.firewalld:
+      immediate: true
+      permanent: true
+      service: cockpit
+      state: enabled
+
+  - name: Copy the certs to cockpit directory
+    ansible.builtin.copy:
+      src: "{{ crt_key_bundle_path }}"
+      dest: "{{ cockpit_cert_path }}"
+      remote_src: true
+
+  - name: Restart cockpit
+    ansible.builtin.service:
+      name: cockpit.socket
+      state: restarted

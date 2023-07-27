@@ -1,0 +1,32 @@
+# variables 
+
+ipa_domain: parmstrong.ca
+ipa_server_fqdn: idm5.parmstrong.ca
+ipa_realm: PARMSTRONG.CA
+ipa_principal: generator
+ipa_password: "Legend2013"
+force_regen: true
+crt_dir: "/etc/ipa/private"
+passfile: "{{ crt_dir }}/passout.txt"
+ssl_private_key_pem_path: "{{ crt_dir}}/{{ ansible_fqdn }}.pem"
+ssl_private_key_path: "{{ crt_dir}}/{{ ansible_fqdn }}.key"
+ssl_private_key_passphrase: changethisoneaswell
+ssl_private_key_cipher: aes256
+ssl_private_key_size: 4096
+ssl_public_key_path: "{{ crt_dir}}/{{ ansible_fqdn }}.pub"
+ssl_public_key_format: PEM
+csr_path: "{{ crt_dir}}/{{ ansible_fqdn }}.csr"
+csr_emailAddress: parmstro@parmstrong.ca
+csr_organizationName: "Paul Armstrong"
+csr_organizationUnitName: "Red Lab"
+csr_countryName: CA
+csr_stateOrProvinceName: ON
+csr_localityName: Cambridge
+csr_digest: aes256
+crt_service_type: HTTP
+ssl_crt_path: "{{ crt_dir}}/{{ ansible_fqdn }}.crt"
+create_crt_key_bundle: true
+crt_key_bundle_path: "{{ crt_dir}}/{{ ansible_fqdn }}.cockpit.cert"
+cockpit_cert_path: "/etc/cockpit/ws-certs.d/z-{{ ansible_fqdn }}.cockpit.cert"
+cockpit_self_ca_crt: "/etc/cockpit/ws-certs.d/0-self-signed-ca.pem"
+cockpit_self_crt: "/etc/cockpit/ws-certs.d/0-self-signed.cert"

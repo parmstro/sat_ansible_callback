@@ -1,0 +1,12 @@
+---
+# This role is a simple demonstration of jinja2 templating in ansible
+# It creates a message of the day file motd on the target system
+# using the template in the templates directory
+#
+
+- name: Deploy the motd template
+  ansible.builtin.template:
+    src: motd.j2
+    dest: /etc/motd
+
+

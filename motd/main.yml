@@ -1,0 +1,11 @@
+---
+# This play uses the motd role to update the motd page
+# for the target systems
+#
+- name: Apply the message of the day
+  hosts: all
+  vars:
+    message: "Today's message: Buy your admin a coffee!"
+  roles:
+    - motd
+

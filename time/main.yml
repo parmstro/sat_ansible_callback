@@ -1,0 +1,16 @@
+---
+# This play uses the motd role to update the motd page
+# for the target systems
+#
+- name: Set date, time and timezone data
+  hosts: all
+  vars:
+    timedaemon: "chrony"
+    timeservers:
+    - "time.parmstrong.ca"
+    - "time2.parmstrong.ca"
+    timezone: "America/Toronto"
+
+  roles:
+    - time
+

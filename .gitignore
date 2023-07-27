@@ -1,0 +1,6 @@
+# On branch main
+#	.gitignore
+*.private
+*_vault.yml
+*.code-workspace
+ansible.cfg

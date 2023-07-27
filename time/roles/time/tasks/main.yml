@@ -1,0 +1,46 @@
+# Set time date and time zone
+
+- name: Ensure that ntp is disabled 
+  ansible.builtin.service:
+    name: ntpd
+    state: stopped
+    enabled: false
+  ignore_errors: true
+    
+- name: Configure chrony
+  ansible.builtin.template:
+    src: chrony.j2
+    dest: /etc/chrony.conf
+    owner: root
+    mode: 0644
+
+- name: Ensure chrony is running
+  ansible.builtin.service:
+    name: chronyd
+    state: restarted
+    enabled: true
+
+- name: Force chrony to correct the clock
+  ansible.builtin.command: "chronyc makestep"
+
+- name: Gather stats
+  ansible.builtin.command: "chronyc tracking"
+  register: result
+
+- name: Output stats
+  ansible.builtin.debug:
+    var: result
+
+- name: Set the timezone
+  community.general.timezone:
+    hwclock: "UTC"
+    name: "{{ timezone }}"
+
+- name: Gather stats
+  ansible.builtin.command: "timedatectl"
+  register: result
+
+- name: Output stats
+  ansible.builtin.debug:
+    var: result
+

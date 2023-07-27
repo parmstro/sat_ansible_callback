@@ -1,0 +1,18 @@
+---
+# This play uses the motd role to update the motd page
+# for the target systems
+#
+- name: Apply the provisioning plays 
+  hosts: all
+  tasks:
+  - debug:
+      msg: Post Provisioning Setup
+
+- name: Include the MOTD play
+  import_playbook: motd/main.yml
+
+- name: Include the cockpit certificates play
+  import_playbook: ipa_certs/cockpit_certs.yml
+
+- name: Include the time play
+  import_playbook: time/main.yml

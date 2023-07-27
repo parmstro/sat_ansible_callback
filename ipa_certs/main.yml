@@ -1,0 +1,9 @@
+---
+# Configure certs 
+#
+
+- name: Generate the certificates
+  hosts: all
+  roles:
+  - http_cert
+
