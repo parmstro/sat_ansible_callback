@@ -4,7 +4,7 @@ ipa_domain: parmstrong.ca
 ipa_server_fqdn: idm5.parmstrong.ca
 ipa_realm: PARMSTRONG.CA
 ipa_principal: generator
-ipa_password: "Legend2013"
+ipa_password: "#Legend2013"
 force_regen: true
 crt_dir: "/etc/ipa/private"
 passfile: "{{ crt_dir }}/passout.txt"
